@@ -1,0 +1,209 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2017  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 512 568)
+	(text "final_tcp_hw" (rect 219 -1 268 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 552 20 564)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk_clk" (rect 0 0 27 12)(font "Arial" (font_size 8)))
+		(text "clk_clk" (rect 4 61 46 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 224 72)(line_width 1))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "reset_reset_n" (rect 0 0 56 12)(font "Arial" (font_size 8)))
+		(text "reset_reset_n" (rect 4 141 82 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 224 152)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "switch_export" (rect 0 0 54 12)(font "Arial" (font_size 8)))
+		(text "switch_export" (rect 4 181 82 192)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 224 192)(line_width 1))
+	)
+	(port
+		(pt 0 248)
+		(input)
+		(text "tse_mac_mdio_connection_mdio_in" (rect 0 0 143 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_mdio_connection_mdio_in" (rect 4 237 190 248)(font "Arial" (font_size 8)))
+		(line (pt 0 248)(pt 224 248)(line_width 1))
+	)
+	(port
+		(pt 0 320)
+		(input)
+		(text "tse_mac_rgmii_connection_rgmii_in[3..0]" (rect 0 0 164 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_rgmii_connection_rgmii_in[3..0]" (rect 4 309 238 320)(font "Arial" (font_size 8)))
+		(line (pt 0 320)(pt 224 320)(line_width 3))
+	)
+	(port
+		(pt 0 352)
+		(input)
+		(text "tse_mac_rgmii_connection_rx_control" (rect 0 0 153 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_rgmii_connection_rx_control" (rect 4 341 214 352)(font "Arial" (font_size 8)))
+		(line (pt 0 352)(pt 224 352)(line_width 1))
+	)
+	(port
+		(pt 0 408)
+		(input)
+		(text "tse_mac_status_connection_set_10" (rect 0 0 143 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_status_connection_set_10" (rect 4 397 196 408)(font "Arial" (font_size 8)))
+		(line (pt 0 408)(pt 224 408)(line_width 1))
+	)
+	(port
+		(pt 0 424)
+		(input)
+		(text "tse_mac_status_connection_set_1000" (rect 0 0 153 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_status_connection_set_1000" (rect 4 413 208 424)(font "Arial" (font_size 8)))
+		(line (pt 0 424)(pt 224 424)(line_width 1))
+	)
+	(port
+		(pt 0 496)
+		(input)
+		(text "tse_pcs_mac_rx_clock_connection_clk" (rect 0 0 159 12)(font "Arial" (font_size 8)))
+		(text "tse_pcs_mac_rx_clock_connection_clk" (rect 4 485 214 496)(font "Arial" (font_size 8)))
+		(line (pt 0 496)(pt 224 496)(line_width 1))
+	)
+	(port
+		(pt 0 536)
+		(input)
+		(text "tse_pcs_mac_tx_clock_connection_clk" (rect 0 0 158 12)(font "Arial" (font_size 8)))
+		(text "tse_pcs_mac_tx_clock_connection_clk" (rect 4 525 214 536)(font "Arial" (font_size 8)))
+		(line (pt 0 536)(pt 224 536)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(output)
+		(text "led_export" (rect 0 0 41 12)(font "Arial" (font_size 8)))
+		(text "led_export" (rect 4 101 64 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 224 112)(line_width 1))
+	)
+	(port
+		(pt 0 232)
+		(output)
+		(text "tse_mac_mdio_connection_mdc" (rect 0 0 130 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_mdio_connection_mdc" (rect 4 221 166 232)(font "Arial" (font_size 8)))
+		(line (pt 0 232)(pt 224 232)(line_width 1))
+	)
+	(port
+		(pt 0 264)
+		(output)
+		(text "tse_mac_mdio_connection_mdio_out" (rect 0 0 149 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_mdio_connection_mdio_out" (rect 4 253 196 264)(font "Arial" (font_size 8)))
+		(line (pt 0 264)(pt 224 264)(line_width 1))
+	)
+	(port
+		(pt 0 280)
+		(output)
+		(text "tse_mac_mdio_connection_mdio_oen" (rect 0 0 152 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_mdio_connection_mdio_oen" (rect 4 269 196 280)(font "Arial" (font_size 8)))
+		(line (pt 0 280)(pt 224 280)(line_width 1))
+	)
+	(port
+		(pt 0 336)
+		(output)
+		(text "tse_mac_rgmii_connection_rgmii_out[3..0]" (rect 0 0 169 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_rgmii_connection_rgmii_out[3..0]" (rect 4 325 244 336)(font "Arial" (font_size 8)))
+		(line (pt 0 336)(pt 224 336)(line_width 3))
+	)
+	(port
+		(pt 0 368)
+		(output)
+		(text "tse_mac_rgmii_connection_tx_control" (rect 0 0 152 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_rgmii_connection_tx_control" (rect 4 357 214 368)(font "Arial" (font_size 8)))
+		(line (pt 0 368)(pt 224 368)(line_width 1))
+	)
+	(port
+		(pt 0 440)
+		(output)
+		(text "tse_mac_status_connection_eth_mode" (rect 0 0 158 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_status_connection_eth_mode" (rect 4 429 208 440)(font "Arial" (font_size 8)))
+		(line (pt 0 440)(pt 224 440)(line_width 1))
+	)
+	(port
+		(pt 0 456)
+		(output)
+		(text "tse_mac_status_connection_ena_10" (rect 0 0 146 12)(font "Arial" (font_size 8)))
+		(text "tse_mac_status_connection_ena_10" (rect 4 445 196 456)(font "Arial" (font_size 8)))
+		(line (pt 0 456)(pt 224 456)(line_width 1))
+	)
+	(drawing
+		(text "clk" (rect 209 43 436 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 229 67 476 144)(font "Arial" (color 0 0 0)))
+		(text "led" (rect 208 83 434 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 229 107 494 224)(font "Arial" (color 0 0 0)))
+		(text "reset" (rect 195 123 420 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 229 147 500 304)(font "Arial" (color 0 0 0)))
+		(text "switch" (rect 188 163 412 339)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 229 187 494 384)(font "Arial" (color 0 0 0)))
+		(text "tse_mac_mdio_connection" (rect 70 203 278 419)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "mdc" (rect 229 227 476 464)(font "Arial" (color 0 0 0)))
+		(text "mdio_in" (rect 229 243 500 496)(font "Arial" (color 0 0 0)))
+		(text "mdio_out" (rect 229 259 506 528)(font "Arial" (color 0 0 0)))
+		(text "mdio_oen" (rect 229 275 506 560)(font "Arial" (color 0 0 0)))
+		(text "tse_mac_rgmii_connection" (rect 69 291 282 595)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "rgmii_in" (rect 229 315 506 640)(font "Arial" (color 0 0 0)))
+		(text "rgmii_out" (rect 229 331 512 672)(font "Arial" (color 0 0 0)))
+		(text "rx_control" (rect 229 347 518 704)(font "Arial" (color 0 0 0)))
+		(text "tx_control" (rect 229 363 518 736)(font "Arial" (color 0 0 0)))
+		(text "tse_mac_status_connection" (rect 62 379 274 771)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "set_10" (rect 229 403 494 816)(font "Arial" (color 0 0 0)))
+		(text "set_1000" (rect 229 419 506 848)(font "Arial" (color 0 0 0)))
+		(text "eth_mode" (rect 229 435 506 880)(font "Arial" (color 0 0 0)))
+		(text "ena_10" (rect 229 451 494 912)(font "Arial" (color 0 0 0)))
+		(text "tse_pcs_mac_rx_clock_connection" (rect 22 467 230 947)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 229 491 476 992)(font "Arial" (color 0 0 0)))
+		(text "tse_pcs_mac_tx_clock_connection" (rect 23 507 232 1027)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 229 531 476 1072)(font "Arial" (color 0 0 0)))
+		(text " final_tcp_hw " (rect 455 552 994 1114)(font "Arial" ))
+		(line (pt 224 32)(pt 288 32)(line_width 1))
+		(line (pt 288 32)(pt 288 552)(line_width 1))
+		(line (pt 224 552)(pt 288 552)(line_width 1))
+		(line (pt 224 32)(pt 224 552)(line_width 1))
+		(line (pt 225 52)(pt 225 76)(line_width 1))
+		(line (pt 226 52)(pt 226 76)(line_width 1))
+		(line (pt 225 92)(pt 225 116)(line_width 1))
+		(line (pt 226 92)(pt 226 116)(line_width 1))
+		(line (pt 225 132)(pt 225 156)(line_width 1))
+		(line (pt 226 132)(pt 226 156)(line_width 1))
+		(line (pt 225 172)(pt 225 196)(line_width 1))
+		(line (pt 226 172)(pt 226 196)(line_width 1))
+		(line (pt 225 212)(pt 225 284)(line_width 1))
+		(line (pt 226 212)(pt 226 284)(line_width 1))
+		(line (pt 225 300)(pt 225 372)(line_width 1))
+		(line (pt 226 300)(pt 226 372)(line_width 1))
+		(line (pt 225 388)(pt 225 460)(line_width 1))
+		(line (pt 226 388)(pt 226 460)(line_width 1))
+		(line (pt 225 476)(pt 225 500)(line_width 1))
+		(line (pt 226 476)(pt 226 500)(line_width 1))
+		(line (pt 225 516)(pt 225 540)(line_width 1))
+		(line (pt 226 516)(pt 226 540)(line_width 1))
+		(line (pt 0 0)(pt 512 0)(line_width 1))
+		(line (pt 512 0)(pt 512 568)(line_width 1))
+		(line (pt 0 568)(pt 512 568)(line_width 1))
+		(line (pt 0 0)(pt 0 568)(line_width 1))
+	)
+)

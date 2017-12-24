@@ -1,0 +1,315 @@
+/*
+ * stack.c
+ *
+ *  Created on: Nov 10, 2017
+ *      Author: shreytej
+ */
+
+#include <altera_avalon_sgdma.h>
+#include <altera_avalon_sgdma_descriptor.h>//include the sgdma descriptor
+#include <altera_avalon_sgdma_regs.h>//include the sgdma registers
+#include <altera_avalon_pio_regs.h>
+#include <altera_avalon_timer.h>
+#include <altera_avalon_timer_regs.h>
+
+#include <string.h>
+#include <stdio.h>
+#include "../include/layer.h"
+#include "sys/alt_stdio.h"
+
+#include "system.h"
+
+#define A 0
+#define B 1
+
+int isConnected;
+unsigned char buffer[5];
+
+struct packet * sentPacket;
+struct packet * pack;
+struct segment * conn;
+int seqNumber = 0x00;
+int ackNumber = 0x00;
+
+IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0000);
+IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0000);
+
+int timer;
+//unsigned char fin;
+
+//unsigned char IP1[4] = {0xC0,0xA8,0x01,0x01};//192.168.1.1
+//unsigned char IP2[4] = {0xC0,0xA8,0x01,0x02};//192.168.1.2
+
+//unsigned char sPort[2] = {0x27,0x0F};//9999
+//unsigned char dPort[2] = {0x23,0x82};//9090
+
+int connect(int device, unsigned char * sourceIP, unsigned char * sourcePort, unsigned char * destinationIP, unsigned char * destinationPort){
+	//struct segment conn;
+
+	conn->syn[0] = 0x01;
+	conn->fin[0] = 0x00;
+	memmove(conn->destPort, destinationPort, 2);
+	memmove(conn->sourcePort, sourcePort, 2);
+	conn->seqNum[0] = seqNumber;
+	conn->ackNum[0] = ackNumber;
+	conn->data[0] = 0x00;
+
+	memmove(pack->sourceIP, sourceIP, 4);
+	memmove(pack->destIP, destinationIP, 4);
+	pack->payload = conn;
+
+	sentPacket = pack;
+
+	//TODO: Send Connection Request
+	transmit(device, pack);
+
+	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+	IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE , 0xFFFF);
+	IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE , 0xFFFF);
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0007);
+
+
+	char * receivedBuffer = {0};
+
+	//TODO:Receive SYNACK;
+	receivedBuffer = receive(device);
+	if(!strncmp(receivedBuffer+32, 0x01, 1)){
+		//send ack
+		pack->payload->syn[0] = 0x00;
+		pack->payload->data[0] = 0x02;
+		pack->payload->seqNum[0] = ++seqNumber;
+		pack->payload->ackNum[0] = ++ackNumber;
+		transmit(device, pack);
+
+		IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0008);
+		IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+
+		return 1;
+	}
+	else{
+		alt_printf("Connection Failed");
+		//TODO: Call Timeout Function
+		timer = IORD_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE);
+		if(timer = 3){
+			transmit(device, sentPacket);
+		}
+		return 0;
+	}
+}
+
+int send(int device, unsigned char data){
+
+	conn->syn[0] = 0x01;
+	conn->fin[0] = 0x00;
+	conn->seqNum[0] = seqNumber;
+	conn->ackNum[0] = ackNumber;
+	conn->data[0] = data;
+	pack->payload = conn;
+
+	sentPacket = pack;
+	transmit(device, pack);
+
+	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+	IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE , 0xAAAA);
+	IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE , 0x002F);
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0007);
+
+	//TODO: Start Timer
+	unsigned char * receivedBuffer;
+
+	//TODO:Receive ACK
+	receivedBuffer = receive(device);
+	if(!strncmp(receivedBuffer+32, 0x02, 1)){
+		IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0008);
+		IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+		alt_printf("Ack received");
+		seqNumber++;
+		ackNumber++;
+		return 1;//sent and ack received
+	}
+	else{
+		alt_printf("Timeout Occurred");
+		//TODO: Call Timeout Function
+		//return 0;
+	}
+}
+
+
+int accept(int device){
+	//TODO: Check if destIP, port is myIP, port
+	unsigned char * request;
+	request = receive(device);
+
+	conn->syn[0] = 0x01;
+	conn->fin[0] = 0x00;
+	memmove(conn->destPort, request+24, 2);
+	memmove(conn->sourcePort, request+26, 2);
+	conn->seqNum[0] = seqNumber;
+	conn->ackNum[0] = ackNumber;
+	conn->data[0] = 0x01;
+
+	memmove(pack->sourceIP, request+20, 4);
+	memmove(pack->destIP, request+20, 4);
+	pack->payload = conn;
+
+	if(!strncmp(request+28, 0x01, 1)){
+		sentPacket = pack;
+		transmit(device, pack);
+		//return 1;
+	}
+
+	unsigned char * ack;
+	ack = receive(device);
+	if(!strncmp(ack+32, 0x02,1)){
+		//Send Ack
+		printf("Three way handshake complete");
+		fflush(stdout);
+		return 1;
+	}
+
+
+
+	//else return 0;
+}
+
+int recv(int device){
+	unsigned char * recvData;
+	recvData = receive(device);
+	//if data
+	if(strncmp(recvData+32, 0x02,1)){
+		//Store Data
+		//Send Ack
+		pack->payload->syn[0] = 0x00;
+		pack->payload->data[0] = 0x02;
+		transmit(device, pack);
+		printf("Data Received: %x\n",recvData+32);
+		fflush(stdout);
+		return 1;
+	}
+	/*else{
+		//received ack
+		ackNumber++;
+		seqNumber++;
+		//do nothing
+	}*/
+}
+
+int disconnect(int device){
+
+	conn->fin[0] = 0x01;
+	sentPacket = pack;
+	transmit(device, pack);
+
+	IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+	IOWR_ALTERA_AVALON_TIMER_PERIODL(TIMER_BASE , 0xAAAA);
+	IOWR_ALTERA_AVALON_TIMER_PERIODH(TIMER_BASE , 0xFFFF);
+	IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0007);
+
+	unsigned char * dcnt;
+
+	dcnt = receive(device);
+	if(dcnt[32]==0x02){
+		IOWR_ALTERA_AVALON_TIMER_CONTROL(TIMER_BASE, 0x0008);
+		IOWR_ALTERA_AVALON_TIMER_STATUS(TIMER_BASE, 0x0002);
+		printf("Disconnected");
+		return 1;
+	}
+}
+
+int recDisconnect(int device){
+	unsigned char * dreq;
+	dreq = receive(device);
+	if(dreq[29] == 0x01){
+		//send ack
+		conn->data[0] = 0x02;
+		transmit(device, pack);
+		return 1;
+	}
+}
+
+
+int main(void){
+	//TODO:
+
+	//sentPacket = (struct packet*)malloc(sizeof(struct packet));
+	pack = (struct packet*)malloc(sizeof(struct packet));
+	conn = (struct segment*)malloc(sizeof(struct segment));
+
+	//int *array = malloc(10 * sizeof(int));
+	unsigned char * IP1= malloc(4 * sizeof(unsigned char));
+	//{0xC0,0xA8,0x01,0x01};//192.168.1.1
+	IP1[0] = 0xC0;
+	IP1[1] = 0xA8;
+	IP1[2] = 0x01;
+	IP1[3] = 0x01;
+	//{0xC0,0xA8,0x01,0x02};//192.168.1.2
+	unsigned char * IP2= malloc(4 * sizeof(unsigned char));
+	IP2[0] = 0xC0;
+	IP2[1] = 0xA8;
+	IP2[2] = 0x01;
+	IP2[3] = 0x02;
+
+	unsigned char * sPort = malloc(2 * sizeof(unsigned char));
+	sPort[0] = 0x27;
+	sPort[1] = 0x0F;//9999
+
+	unsigned char * dPort = malloc(2 * sizeof(unsigned char));
+	dPort[0] = 0x23;
+	dPort[1] = 0x82;//9090
+
+	buffer[0] = 0xAA;
+	buffer[1] = 0xBB;
+	buffer[2] = 0xCC;
+	buffer[3] = 0xDD;
+	buffer[4] = 0xEE;
+
+	int transmit = IORD_ALTERA_AVALON_PIO_DATA(SWITCH_BASE); //read the input from the switch
+	int isConnected = 0;
+
+	if(transmit){
+		isConnected = connect(A,IP1, sPort, IP2, dPort);
+		if(isConnected){
+			int j = 0;
+			//add delay as it would start sending before the receiver is in receive mode
+			while(j < 5){
+				int sent = 0;
+				sent = send(A, buffer[j]);
+				//TODO: Start Timer
+				if(sent){
+					j++;
+				}
+				else {
+					printf("ACK NOT RECEIVED");
+					fflush(stdout);
+				}
+
+			}
+			disconnect(A);
+		}
+	}
+	else {
+		//SYN RECEIVED SYNACK SENT
+		int conn = accept(B);
+		if(conn){
+			printf("Connection Successful");
+			fflush(stdout);
+			printf("Receiving data");
+			fflush(stdout);
+			int k = 0;
+			while(k < 5){
+				int rec = 0;
+				rec = recv(B);
+				if(rec){
+					k++;
+				}
+			}
+			recDisconnect(B);
+		}
+		else{
+			printf("Connection Failed at Receiver");
+			fflush(stdout);
+		}
+	}
+
+	return 0;
+}

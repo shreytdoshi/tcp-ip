@@ -1,0 +1,89 @@
+{
+	"partitions" : [
+		{
+			"name" : "Top",
+			"pins" : [
+				{
+					"name" : "led",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_GTX_CLK",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_MDC",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_TX_DATA[0]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_TX_DATA[1]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_TX_DATA[2]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_TX_DATA[3]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_TX_EN",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_MDIO",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_CLK",
+					"strict" : false
+				},
+				{
+					"name" : "switch",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_DV",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_DATA[2]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_DATA[1]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_DATA[3]",
+					"strict" : false
+				},
+				{
+					"name" : "ENET_RX_DATA[0]",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tms",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tck",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdi",
+					"strict" : false
+				},
+				{
+					"name" : "altera_reserved_tdo",
+					"strict" : false
+				}
+			]
+		}
+	]
+}

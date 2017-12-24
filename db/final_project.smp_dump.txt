@@ -1,0 +1,113 @@
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_top_mdio:U_MDIO|altera_tse_mdio_cntl:U_CNTL|state
+Name state.STM_TYP_HOST_RD_END state.STM_TYP_HOST_RD_REG_WAIT state.STM_TYP_HOST_RD_REG state.STM_TYP_HOST_RD_WAIT2 state.STM_TYP_HOST_RD_WAIT1 state.STM_TYP_HOST_RD_WAIT state.STM_TYP_HOST_RD_WR_ADDR state.STM_TYP_HOST_WR_END state.STM_TYP_HOST_WR_WAIT state.STM_TYP_HOST_WR_WAIT2 state.STM_TYP_HOST_WR_WAIT1 state.STM_TYP_HOST_WR_WR_DATA state.STM_TYP_HOST_WR_WR_ADDR state.STM_TYP_IDLE 
+state.STM_TYP_IDLE 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+state.STM_TYP_HOST_WR_WR_ADDR 0 0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.STM_TYP_HOST_WR_WR_DATA 0 0 0 0 0 0 0 0 0 0 0 1 0 1 
+state.STM_TYP_HOST_WR_WAIT1 0 0 0 0 0 0 0 0 0 0 1 0 0 1 
+state.STM_TYP_HOST_WR_WAIT2 0 0 0 0 0 0 0 0 0 1 0 0 0 1 
+state.STM_TYP_HOST_WR_WAIT 0 0 0 0 0 0 0 0 1 0 0 0 0 1 
+state.STM_TYP_HOST_WR_END 0 0 0 0 0 0 0 1 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_WR_ADDR 0 0 0 0 0 0 1 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_WAIT 0 0 0 0 0 1 0 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_WAIT1 0 0 0 0 1 0 0 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_WAIT2 0 0 0 1 0 0 0 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_REG 0 0 1 0 0 0 0 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_REG_WAIT 0 1 0 0 0 0 0 0 0 0 0 0 0 1 
+state.STM_TYP_HOST_RD_END 1 0 0 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_mac_control:U_MAC_CONTROL|altera_tse_host_control:U_CTRL|state
+Name state.STM_TYPE_STAT_READ state.STM_TYPE_WAIT_BUSY state.STM_TYPE_WAIT_CYCLE state.STM_TYPE_END_READ state.STM_TYPE_NEXT_CYCLE state.STM_TYPE_MDIO_WRITE state.STM_TYPE_MDIO_READ state.STM_TYPE_IDLE 
+state.STM_TYPE_IDLE 0 0 0 0 0 0 0 0 
+state.STM_TYPE_MDIO_READ 0 0 0 0 0 0 1 1 
+state.STM_TYPE_MDIO_WRITE 0 0 0 0 0 1 0 1 
+state.STM_TYPE_NEXT_CYCLE 0 0 0 0 1 0 0 1 
+state.STM_TYPE_END_READ 0 0 0 1 0 0 0 1 
+state.STM_TYPE_WAIT_CYCLE 0 0 1 0 0 0 0 1 
+state.STM_TYPE_WAIT_BUSY 0 1 0 0 0 0 0 1 
+state.STM_TYPE_STAT_READ 1 0 0 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_mac_control:U_MAC_CONTROL|altera_tse_register_map:U_REG|altera_tse_tx_counter_cntl:U_TXCNT|state
+Name state.STM_TYPE_WR_CNT_DONE state.STM_TYPE_RST_DONE state.STM_TYPE_IDLE state.STM_TYPE_WR_CNT state.STM_TYPE_INC_CNT state.STM_TYPE_RD_CNT state.STM_TYPE_RST_CNT 
+state.STM_TYPE_RST_CNT 0 0 0 0 0 0 0 
+state.STM_TYPE_RD_CNT 0 0 0 0 0 1 1 
+state.STM_TYPE_INC_CNT 0 0 0 0 1 0 1 
+state.STM_TYPE_WR_CNT 0 0 0 1 0 0 1 
+state.STM_TYPE_IDLE 0 0 1 0 0 0 1 
+state.STM_TYPE_RST_DONE 0 1 0 0 0 0 1 
+state.STM_TYPE_WR_CNT_DONE 1 0 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_mac_control:U_MAC_CONTROL|altera_tse_register_map:U_REG|altera_tse_rx_counter_cntl:U_RXCNT|state
+Name state.STM_TYPE_DELAY state.STM_TYPE_RST_DONE state.STM_TYPE_IDLE state.STM_TYPE_WR_CNT state.STM_TYPE_INC_CNT state.STM_TYPE_RD_CNT state.STM_TYPE_RST_CNT 
+state.STM_TYPE_RST_CNT 0 0 0 0 0 0 0 
+state.STM_TYPE_RD_CNT 0 0 0 0 0 1 1 
+state.STM_TYPE_INC_CNT 0 0 0 0 1 0 1 
+state.STM_TYPE_WR_CNT 0 0 0 1 0 0 1 
+state.STM_TYPE_IDLE 0 0 1 0 0 0 1 
+state.STM_TYPE_RST_DONE 0 1 0 0 0 0 1 
+state.STM_TYPE_DELAY 1 0 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_sgdma_tx:sgdma_tx|final_tcp_hw_sgdma_tx_desc_address_fifo:the_final_tcp_hw_sgdma_tx_desc_address_fifo|scfifo:final_tcp_hw_sgdma_tx_desc_address_fifo_desc_address_fifo|a_fffifo:subfifo|a_fefifo:fifo_state|sm_emptyfull
+Name state_middle state_full state_empty 
+state_empty 0 0 0 
+state_middle 1 0 1 
+state_full 0 1 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_sgdma_tx:sgdma_tx|final_tcp_hw_sgdma_tx_chain:the_final_tcp_hw_sgdma_tx_chain|descriptor_read_which_resides_within_final_tcp_hw_sgdma_tx:the_descriptor_read_which_resides_within_final_tcp_hw_sgdma_tx|descriptor_read_which_resides_within_final_tcp_hw_sgdma_tx_control_bits_fifo:the_descriptor_read_which_resides_within_final_tcp_hw_sgdma_tx_control_bits_fifo|scfifo:descriptor_read_which_resides_within_final_tcp_hw_sgdma_tx_control_bits_fifo_controlbitsfifo|a_fffifo:subfifo|a_fefifo:fifo_state|sm_emptyfull
+Name state_middle state_full state_empty 
+state_empty 0 0 0 
+state_middle 1 0 1 
+state_full 0 1 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_sgdma_rx:sgdma_rx|final_tcp_hw_sgdma_rx_desc_address_fifo:the_final_tcp_hw_sgdma_rx_desc_address_fifo|scfifo:final_tcp_hw_sgdma_rx_desc_address_fifo_desc_address_fifo|a_fffifo:subfifo|a_fefifo:fifo_state|sm_emptyfull
+Name state_middle state_full state_empty 
+state_empty 0 0 0 
+state_middle 1 0 1 
+state_full 0 1 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_sgdma_rx:sgdma_rx|final_tcp_hw_sgdma_rx_chain:the_final_tcp_hw_sgdma_rx_chain|descriptor_read_which_resides_within_final_tcp_hw_sgdma_rx:the_descriptor_read_which_resides_within_final_tcp_hw_sgdma_rx|descriptor_read_which_resides_within_final_tcp_hw_sgdma_rx_control_bits_fifo:the_descriptor_read_which_resides_within_final_tcp_hw_sgdma_rx_control_bits_fifo|scfifo:descriptor_read_which_resides_within_final_tcp_hw_sgdma_rx_control_bits_fifo_controlbitsfifo|a_fffifo:subfifo|a_fefifo:fifo_state|sm_emptyfull
+Name state_middle state_full state_empty 
+state_empty 0 0 0 
+state_middle 1 0 1 
+state_full 0 1 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_nios2:nios2|final_tcp_hw_nios2_cpu:cpu|final_tcp_hw_nios2_cpu_nios2_oci:the_final_tcp_hw_nios2_cpu_nios2_oci|final_tcp_hw_nios2_cpu_debug_slave_wrapper:the_final_tcp_hw_nios2_cpu_debug_slave_wrapper|final_tcp_hw_nios2_cpu_debug_slave_tck:the_final_tcp_hw_nios2_cpu_debug_slave_tck|DRsize
+Name DRsize.101 DRsize.100 DRsize.011 DRsize.010 DRsize.001 DRsize.000 
+DRsize.000 0 0 0 0 0 0 
+DRsize.001 0 0 0 0 1 1 
+DRsize.010 0 0 0 1 0 1 
+DRsize.011 0 0 1 0 0 1 
+DRsize.100 0 1 0 0 0 1 
+DRsize.101 1 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_top_w_fifo_10_100_1000:U_MAC_TOP|altera_tse_top_w_fifo:U_MAC|altera_tse_tx_min_ff:U_TXFF|altera_tse_retransmit_cntl:U_RETR|state
+Name state.STM_TYP_WAIT_COL state.STM_TYP_BACK_OFF state.STM_TYP_RETRANSMIT_SHORT state.STM_TYP_RETRANSMIT state.STM_TYP_FLUSH state.STM_TYP_WAIT_END state.STM_TYP_COPY state.STM_TYP_IDLE state.STM_TYP_WAIT_COL_1 
+state.STM_TYP_IDLE 0 0 0 0 0 0 0 0 0 
+state.STM_TYP_COPY 0 0 0 0 0 0 1 1 0 
+state.STM_TYP_WAIT_END 0 0 0 0 0 1 0 1 0 
+state.STM_TYP_FLUSH 0 0 0 0 1 0 0 1 0 
+state.STM_TYP_RETRANSMIT 0 0 0 1 0 0 0 1 0 
+state.STM_TYP_RETRANSMIT_SHORT 0 0 1 0 0 0 0 1 0 
+state.STM_TYP_BACK_OFF 0 1 0 0 0 0 0 1 0 
+state.STM_TYP_WAIT_COL 1 0 0 0 0 0 0 1 0 
+state.STM_TYP_WAIT_COL_1 0 0 0 0 0 0 0 1 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_top_w_fifo_10_100_1000:U_MAC_TOP|altera_tse_top_w_fifo:U_MAC|altera_tse_rx_min_ff:U_RXFF|state
+Name state.LOC_STATE_FF_DATA_FLUSH_WAIT state.LOC_STATE_RST_DONE state.LOC_STATE_SHIFT_WAIT state.LOC_STATE_FF_FLUSH_WAIT state.LOC_STATE_FF_DATA_FLUSH state.LOC_STATE_END_FRM state.LOC_STATE_SHIFT state.LOC_STATE_WAIT state.LOC_STATE_DATA state.LOC_STATE_IDLE 
+state.LOC_STATE_IDLE 0 0 0 0 0 0 0 0 0 0 
+state.LOC_STATE_DATA 0 0 0 0 0 0 0 0 1 1 
+state.LOC_STATE_WAIT 0 0 0 0 0 0 0 1 0 1 
+state.LOC_STATE_SHIFT 0 0 0 0 0 0 1 0 0 1 
+state.LOC_STATE_END_FRM 0 0 0 0 0 1 0 0 0 1 
+state.LOC_STATE_FF_DATA_FLUSH 0 0 0 0 1 0 0 0 0 1 
+state.LOC_STATE_FF_FLUSH_WAIT 0 0 0 1 0 0 0 0 0 1 
+state.LOC_STATE_SHIFT_WAIT 0 0 1 0 0 0 0 0 0 1 
+state.LOC_STATE_RST_DONE 0 1 0 0 0 0 0 0 0 1 
+state.LOC_STATE_FF_DATA_FLUSH_WAIT 1 0 0 0 0 0 0 0 0 1 
+
+State Machine - |final_project|final_tcp_hw:system_inst|final_tcp_hw_tse:tse|altera_eth_tse_mac:i_tse_mac|altera_tse_top_w_fifo_10_100_1000:U_MAC_TOP|altera_tse_top_w_fifo:U_MAC|altera_tse_top_1geth:U_GETH|altera_tse_rx_stat_extract:U_RXSTAT|state
+Name state.stm_typ_end_frm state.stm_typ_frm state.stm_typ_sfd state.stm_typ_idle 
+state.stm_typ_idle 0 0 0 0 
+state.stm_typ_sfd 0 0 1 1 
+state.stm_typ_frm 0 1 0 1 
+state.stm_typ_end_frm 1 0 0 1 

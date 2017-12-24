@@ -1,0 +1,4 @@
+create_clock -period 20.000ns [get_ports clk]
+derive_pll_clocks
+derive_clock_uncertainty
+set_clock_groups -exclusive -group [get_clocks pll_inst|altpll_component|auto_generated|pll1|clk[0]] -group [get_clocks pll_inst|altpll_component|auto_generated|pll1|clk[1]] -group [get_clocks pll_inst|altpll_component|auto_generated|pll1|clk[2]] -group [get_clocks pll_inst|altpll_component|auto_generated|pll1|clk[3]] -group [get_clocks pll_90_inst|altpll_component|auto_generated|pll1|clk[0]] -group [get_clocks pll_90_inst|altpll_component|auto_generated|pll1|clk[1]] -group [get_clocks pll_90_inst|altpll_component|auto_generated|pll1|clk[2]]

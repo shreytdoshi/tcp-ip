@@ -1,0 +1,235 @@
+/*
+ * stack.c
+ *
+ *  Created on: Nov 10, 2017
+ *      Author: shreytej
+ */
+
+#include <altera_avalon_sgdma.h>
+#include <altera_avalon_sgdma_descriptor.h>//include the sgdma descriptor
+#include <altera_avalon_sgdma_regs.h>//include the sgdma registers
+#include <altera_avalon_pio_regs.h>
+
+#include <string.h>
+#include <stdio.h>
+#include "../include/layer.h"
+#include "sys/alt_stdio.h"
+
+//#include "system.h"
+
+#define A 0
+#define B 1
+
+int isConnected;
+char *buffer[10];
+
+struct packet pack;
+int seqNumber = 0;
+int ackNumber = 0;
+
+char * IP1 = "192.168.10.1";
+char * IP2 = "192.168.10.9";
+
+long int sPort = 1027;
+long int dPort = 9090;
+
+int connect(int device, char * sourceIP, int sourcePort, char * destinationIP, int destinationPort){
+	struct segment conn;
+
+	conn.syn = 1;
+	conn.fin = 0;
+	conn.destPort = destinationPort;
+	conn.sourcePort = sourcePort;
+	conn.seqNum = seqNumber;
+	conn.ackNum = ackNumber;
+
+	memset(conn.data, '\0', 20);
+	conn.checksum = conn.syn + conn.fin + conn.destPort + conn.sourcePort + conn.seqNum + conn.ackNum;
+
+	strcpy(pack.sourceIP, sourceIP);
+	strcpy(pack.destIP, destinationIP);
+	pack.payload = &conn;
+
+	char write[1024] = {0};
+	//sprintf
+	packetToString(pack, write);
+	printf("%s", write);
+	fflush(stdout);
+
+	//TODO: Send Connection Request
+	transmit(device, "aaSYN");
+
+
+	char receivedBuffer[1024] = {0};
+
+	//TODO:Receive SYNACK;
+	receive(device, receivedBuffer);
+	if(!strncmp(receivedBuffer, "SYNACK", 6)){
+		return 1;
+	}
+	else{
+		alt_printf("Connection Failed");
+		//TODO: Call Timeout Function
+		//return 0;
+	}
+}
+
+int send(int device, char * data){
+	struct segment conn;
+	struct packet pack1;
+	conn.syn = 1;
+	conn.fin = 0;
+	int i = 0;
+	conn.destPort = pack.payload->destPort;
+	conn.sourcePort = pack.payload->destPort;
+	conn.seqNum = 0;
+	conn.ackNum = 0;
+
+	memset(conn.data, '\0', 20);
+	strncpy(conn.data, data, strlen(data));
+	conn.checksum = conn.syn + conn.fin + conn.destPort + conn.sourcePort + conn.seqNum + conn.ackNum;
+
+	while(i < strlen(data)){
+		conn.checksum = conn.checksum + data[i];
+		i++;
+	}
+
+	strcpy(pack1.sourceIP, pack.sourceIP);
+	strcpy(pack1.destIP, pack.destIP);
+	pack1.payload = &conn;
+
+	char write[1024] = {0};
+	//sprintf
+	packetToString(pack1, write);
+	printf("%s", write);
+	fflush(stdout);
+
+	//TODO: Send
+	char send[256];
+	memset(send, "\0", 256);
+	strncpy(send,"aa",2);
+	strcat(send, conn.data);
+	transmit(device, send);
+	//TODO: Start Timer
+	char receivedBuffer[1024] = {0};
+
+	//TODO:Receive ACK
+	receive(device, receivedBuffer);
+	if(!strncmp(receivedBuffer, "ACK", 3)){
+		return 1;
+	}
+	else{
+		alt_printf("Timeout Occurred");
+		//TODO: Call Timeout Function
+		//return 0;
+	}
+}
+
+
+int accept(int device){
+	//TODO: Check if destIP, port is myIP, port
+	char request[1024];
+	receive(device, request);
+	if(!strncmp(request, "SYN", 3)){
+		transmit(device, "aaSYNACK");
+		return 1;
+	}
+	else return 0;
+}
+
+int recv(int device){
+	char recvData[1024];
+	receive(device, recvData);
+	if(strncmp(recvData,"ACK",3)){
+		//Store Data
+		printf("Data Received: %s\n",recvData);
+		fflush(stdout);
+	}
+	else{
+		ackNumber++;
+	}
+}
+
+
+void packetToString(struct packet pack, char * write){
+
+	char csyn[10];
+	sprintf(csyn, "%d", pack.payload->syn);
+	char cfin[10];
+	sprintf(cfin, "%d", pack.payload->fin);
+	char csourcePort[20];
+	sprintf(csourcePort, "%li", pack.payload->sourcePort);
+	char cdestPort[20];
+	sprintf(cdestPort, "%li", pack.payload->destPort);
+	char cseq[10];
+	sprintf(cseq, "%d", pack.payload->seqNum);
+	char cack[10];
+	sprintf(cack, "%d", pack.payload->ackNum);
+	char ccheck[150];
+	sprintf(ccheck, "%li", pack.payload->checksum);
+
+	strcat(write, pack.sourceIP);
+	strcat(write, "-");
+	strcat(write, pack.destIP);
+	strcat(write, "-");
+	strcat(write, csourcePort);
+	strcat(write, "-");
+	strcat(write, cdestPort);
+	strcat(write, "-");
+	strcat(write, cseq);
+	strcat(write, "-");
+	strcat(write, cack);
+	strcat(write, "-");
+	strcat(write, csyn);
+	strcat(write, "-");
+	strcat(write, cfin);
+	strcat(write, "-");
+	strcat(write, pack.payload->data);
+	strcat(write, "-");
+	strcat(write, ccheck);
+}
+
+int main(void){
+	//TODO:
+	strncpy(buffer[0], "bbbbb", 5);
+	strncpy(buffer[1], "ccccc", 5);
+	strncpy(buffer[2], "ddddd", 5);
+	strncpy(buffer[3], "eeeee", 5);
+	strncpy(buffer[4], "fffff", 5);
+	int transmit = IORD_ALTERA_AVALON_PIO_DATA(SWITCH_BASE); //read the input from the switch
+	int isConnected = 0;
+
+	if(transmit){
+
+		isConnected = connect(A,"192.10.1.0", 1256, "192.25.12.1", 5682);
+		if(isConnected){
+			int j = 0;
+			while(j < 5){
+				int sent = 0;
+				sent = send(A, buffer[j]);
+				//TODO: Start Timer
+				if(sent){
+					j++;
+				}
+				else {
+					printf("ACK NOT RECEIVED");
+					fflush(stdout);
+				}
+			}
+		}
+	}
+	else {
+		//SYN RECEIVED SYNACK SENT
+		int conn = accept(B);
+		if(conn){
+			printf("Connection Successful");
+			fflush(stdout);
+		}
+		else{
+			printf("Connection Failed at Receiver");
+			fflush(stdout);
+		}
+	}
+
+	return 0;
+}

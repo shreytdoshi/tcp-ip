@@ -1,0 +1,54 @@
+15:37:11 **** Incremental Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:37:28 **** Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:37:31 **** Incremental Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:40:35 **** Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:40:39 **** Incremental Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:41:11 **** Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:41:20 **** Incremental Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:54:27 **** Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
+15:54:31 **** Incremental Build of configuration Nios II for project tcp ****
+make all 
+Info: Building ../tcp_bsp/
+C:/intelFPGA_lite/17.0/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../tcp_bsp/
+[BSP build complete]
+[tcp build complete]
